@@ -64,6 +64,7 @@ add_requireconfs("cpp-httplib", {configs = {ssl = true}})
 
 package("sol2")
     set_kind("library", {headeronly = true})
+    add_deps("lua")
     on_install(function (package)
         os.cp(path.join(os.projectdir(), "Libraries/sol2/include/*"), package:installdir("include"))
     end)
