@@ -9,8 +9,10 @@
 #include <Messages/NotifyWeatherChange.h>
 #include <Messages/RequestCurrentWeather.h>
 
+#if TP_SKYRIM
 #include <Sky/Sky.h>
 #include <Forms/TESWeather.h>
+#endif
 
 WeatherService::WeatherService(World& aWorld, TransportService& aTransport, entt::dispatcher& aDispatcher)
     : m_world(aWorld)
