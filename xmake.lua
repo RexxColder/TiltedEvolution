@@ -38,11 +38,12 @@ add_requires(
     "tiltedcore 0.2.8", 
     "cryptopp 8.9.0", 
     "spdlog v1.13.0", 
-    "cpp-httplib 0.14.0",
+    "cpp-httplib v0.14.0",
     "gtest v1.14.0", 
     "mem 1.0.0", 
     "glm 0.9.9+8", 
-    "zlib v1.3.1"
+    "zlib v1.3.1",
+    "mimalloc"
 )
 if is_plat("windows") then
     add_requires(
@@ -70,6 +71,7 @@ package("sol2")
     end)
 package_end()
 
+--[[
 package("mimalloc")
     set_kind("library")
     on_install(function (package)
@@ -77,6 +79,7 @@ package("mimalloc")
         os.cp(path.join(os.projectdir(), "Libraries/mimalloc/lib/*.lib"), package:installdir("lib"))
     end)
 package_end()
+--]]
 
 add_requires("sol2", "mimalloc")
 --[[
