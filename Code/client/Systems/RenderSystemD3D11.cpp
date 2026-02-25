@@ -3,10 +3,12 @@
 #include <Systems/RenderSystemD3D11.h>
 
 #include <Services/DebugService.h>
-#include <Services/OverlayService.h>
 #include <Services/ImguiService.h>
 
 #include <d3d11.h>
+
+#if TP_SKYRIM
+#include <Services/OverlayService.h>
 
 RenderSystemD3D11::RenderSystemD3D11(OverlayService& aOverlay, ImguiService& aImguiService)
     : m_pSwapChain(nullptr)
@@ -58,3 +60,4 @@ void RenderSystemD3D11::OnReset(IDXGISwapChain* apSwapChain)
     m_overlay.Reset();
     m_imguiService.Reset();
 }
+#endif

@@ -36,6 +36,7 @@ World::World()
     , m_lastFrameTime{std::chrono::high_resolution_clock::now()}
 {
     ctx().emplace<ImguiService>();
+#if TP_SKYRIM
     ctx().emplace<DiscoveryService>(*this, m_dispatcher);
     ctx().emplace<OverlayService>(*this, m_transport, m_dispatcher);
     ctx().emplace<InputService>(ctx().at<OverlayService>());
@@ -45,9 +46,7 @@ World::World()
     ctx().emplace<DiscordService>(m_dispatcher);
     ctx().emplace<ObjectService>(*this, m_dispatcher, m_transport);
     ctx().emplace<CalendarService>(*this, m_dispatcher, m_transport);
-#if TP_SKYRIM
     ctx().emplace<QuestService>(*this, m_dispatcher);
-#endif
     ctx().emplace<PartyService>(*this, m_dispatcher, m_transport);
     ctx().emplace<ActorValueService>(*this, m_dispatcher, m_transport);
     ctx().emplace<InventoryService>(*this, m_dispatcher, m_transport);
@@ -60,6 +59,7 @@ World::World()
     ctx().emplace<MapService>(*this, m_dispatcher, m_transport);
 
     BehaviorVar::Get()->Init();
+#endif
 }
 
 World::~World() = default;
