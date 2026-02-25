@@ -13,6 +13,11 @@
 
 #include <World.h>
 
+#if TP_SKYRIM
+#include <Services/OverlayService.h>
+#include <Services/MagicService.h>
+#endif
+
 OverlayClient::OverlayClient(TransportService& aTransport, TiltedPhoques::OverlayRenderHandler* apHandler)
     : TiltedPhoques::OverlayClient(apHandler)
     , m_transport(aTransport)
