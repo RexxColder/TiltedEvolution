@@ -12,7 +12,11 @@
 #if TP_SKYRIM
 #include <Sky/Sky.h>
 #include <Forms/TESWeather.h>
+#else
+struct TESWeather;
 #endif
+
+#if TP_SKYRIM
 
 WeatherService::WeatherService(World& aWorld, TransportService& aTransport, entt::dispatcher& aDispatcher)
     : m_world(aWorld)
@@ -209,3 +213,4 @@ void WeatherService::SetCachedWeather() noexcept
 
     Sky::Get()->ForceWeather(pWeather);
 }
+#endif
