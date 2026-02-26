@@ -1,9 +1,9 @@
 #include <Services/DebugService.h>
 
 #include <imgui.h>
-#include <intrin.h>
 
 #if TP_SKYRIM
+#include <inttypes.h>
 #include <Sky/Sky.h>
 #include <Forms/TESWeather.h>
 
@@ -54,3 +54,4 @@ void DebugService::DrawWeatherView()
 
     ImGui::End();
 }
+#endif

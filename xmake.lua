@@ -81,7 +81,7 @@ package("mimalloc")
 package_end()
 --]]
 
-add_requires("sol2", "mimalloc")
+add_requires("sol2", "mimalloc", "lua")
 --[[
 add_requireconfs("magnum", { configs = { sdl2 = true }})
 add_requireconfs("magnum-integration",  { configs = { imgui = true }})
