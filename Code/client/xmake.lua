@@ -40,6 +40,8 @@ target(name)
     if game == "Skyrim" then
         add_deps("SkyrimEncoding")
         add_defines("TP_SKYRIM=1", "TP_FALLOUT4=0")
+        add_files("Games/Misc/Lock.cpp")
+        add_files("Games/Misc/SubtitleManager.cpp")
     else
         add_deps("SkyrimEncoding")
         add_defines("TP_SKYRIM=0", "TP_FALLOUT4=1")
