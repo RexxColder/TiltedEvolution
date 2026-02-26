@@ -106,7 +106,9 @@ DebugService::DebugService(entt::dispatcher& aDispatcher, World& aWorld, Transpo
     , m_world(aWorld)
 {
     m_updateConnection = m_dispatcher.sink<UpdateEvent>().connect<&DebugService::OnUpdate>(this);
+#if TP_SKYRIM
     m_drawImGuiConnection = aImguiService.OnDraw.connect<&DebugService::OnDraw>(this);
+#endif
     m_dialogueConnection = m_dispatcher.sink<DialogueEvent>().connect<&DebugService::OnDialogue>(this);
     m_dispatcher.sink<SubtitleEvent>().connect<&DebugService::OnSubtitle>(this);
     m_dispatcher.sink<MoveActorEvent>().connect<&DebugService::OnMoveActor>(this);

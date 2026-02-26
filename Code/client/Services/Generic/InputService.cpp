@@ -432,14 +432,19 @@ LRESULT CALLBACK InputService::WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPAR
     }
     // If the player tabs out/in with UI visible, this WndProc doesn't run during mouse or keyboard events.
     // When player tabs in, force the UI state
+#if TP_SKYRIM
     else if (uMsg == WM_SETFOCUS && s_pOverlay->GetActive())
     {
         TiltedPhoques::DInputHook::Get().SetEnabled(true);
         s_pOverlay->SetActive(true);
-#if TP_SKYRIM
         pRenderer->SetCursorVisible(true);
-#endif
     }
+#else
+    else if (uMsg == WM_SETFOCUS)
+    {
+        TiltedPhoques::DInputHook::Get().SetEnabled(true);
+    }
+#endif
     else if (uMsg == WM_INPUTLANGCHANGE)
     {
         s_currentACP = GetRealACP();
