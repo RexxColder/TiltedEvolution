@@ -334,6 +334,7 @@ LRESULT CALLBACK InputService::WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPAR
         return 0;
 #endif
 
+#if TP_SKYRIM
     auto& discord = World::Get().ctx().at<DiscordService>();
     discord.WndProcHandler(hwnd, uMsg, wParam, lParam);
 
@@ -343,6 +344,9 @@ LRESULT CALLBACK InputService::WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPAR
         auto& imgui = World::Get().ctx().at<ImguiService>();
         imgui.WndProcHandler(hwnd, uMsg, wParam, lParam);
     }
+#else
+    const bool active = false;
+#endif
 
     POINT position;
 

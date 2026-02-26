@@ -116,7 +116,9 @@ void OverlayClient::ProcessDisconnectMessage()
 void OverlayClient::ProcessRevealPlayersMessage()
 {
     SetUIVisible(false);
+#if TP_SKYRIM
     World::Get().GetMagicService().StartRevealingOtherPlayers();
+#endif
 }
 
 void OverlayClient::ProcessChatMessage(CefRefPtr<CefListValue> aEventArgs)

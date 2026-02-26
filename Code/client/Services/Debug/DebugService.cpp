@@ -156,8 +156,10 @@ extern thread_local bool g_forceAnimation;
 
 void DebugService::OnUpdate(const UpdateEvent& acUpdateEvent) noexcept
 {
+#if TP_SKYRIM
     if (!BSGraphics::GetMainWindow()->IsForeground())
         return;
+#endif
 
     if (moveData.pActor)
     {
