@@ -1,8 +1,9 @@
 #include <Services/DebugService.h>
 
 #include <imgui.h>
-#include <inttypes.h>
+#include <intrin.h>
 
+#if TP_SKYRIM
 #include <Sky/Sky.h>
 #include <Forms/TESWeather.h>
 

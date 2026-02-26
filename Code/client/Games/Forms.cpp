@@ -64,7 +64,9 @@ void TESNPC::Initialize() noexcept
     combatStyle = pPlayerBaseForm->combatStyle;
     raceForm.race = pPlayerBaseForm->raceForm.race;
     outfits[0] = pPlayerBaseForm->outfits[0];
+#if TP_SKYRIM
     spellList.Initialize();
+#endif
     // End defaults
 
     flags |= 0x200000;

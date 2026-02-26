@@ -2,6 +2,7 @@
 #include <inttypes.h>
 #include <Services/DebugService.h>
 
+#if TP_SKYRIM
 #include <PlayerCharacter.h>
 #include <EquipManager.h>
 #include <World.h>
@@ -129,3 +130,4 @@ void DebugService::DrawContainerDebugView()
 
     ImGui::End();
 }
+#endif

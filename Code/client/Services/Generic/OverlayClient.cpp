@@ -162,6 +162,8 @@ void OverlayClient::SetUIVisible(bool aVisible) noexcept
         return;
 
     TiltedPhoques::DInputHook::Get().SetEnabled(aVisible);
+#if TP_SKYRIM
     World::Get().GetOverlayService().SetActive(aVisible);
+#endif
     pRenderer->SetCursorVisible(aVisible);
 }

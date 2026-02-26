@@ -74,6 +74,7 @@
 extern thread_local bool g_overrideFormId;
 
 constexpr char kBuildTag[] = "Build: " BUILD_COMMIT " " BUILD_BRANCH " EVO\nBuilt: " __TIMESTAMP__;
+#if TP_SKYRIM
 static void DrawBuildTag()
 {
     auto* pWindow = BSGraphics::GetMainWindow();
@@ -97,6 +98,7 @@ void __declspec(noinline) DebugService::PlaceActorInWorld() noexcept
 
     m_actors.emplace_back(pActor);
 }
+#endif
 
 DebugService::DebugService(entt::dispatcher& aDispatcher, World& aWorld, TransportService& aTransport, ImguiService& aImguiService)
     : m_dispatcher(aDispatcher)

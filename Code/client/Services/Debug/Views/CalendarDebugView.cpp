@@ -3,6 +3,7 @@
 #include <imgui.h>
 #include <inttypes.h>
 
+#if TP_SKYRIM
 #include <TimeManager.h>
 
 void DebugService::DrawCalendarView()
@@ -31,3 +32,4 @@ void DebugService::DrawCalendarView()
 
     ImGui::End();
 }
+#endif
