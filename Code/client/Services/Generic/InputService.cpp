@@ -179,9 +179,9 @@ void ProcessKeyboard(uint16_t aKey, uint16_t aScanCode, cef_key_event_type_t aTy
         }
     }
 
+#if TP_SKYRIM
     auto& overlay = *s_pOverlay;
 
-#if TP_SKYRIM
     const auto pApp = overlay.GetOverlayApp();
     if (!pApp)
         return;
@@ -193,7 +193,6 @@ void ProcessKeyboard(uint16_t aKey, uint16_t aScanCode, cef_key_event_type_t aTy
     const auto pRenderer = pClient->GetOverlayRenderHandler();
     if (!pRenderer)
         return;
-#endif
 
     const auto active = overlay.GetActive();
 
@@ -207,17 +206,14 @@ void ProcessKeyboard(uint16_t aKey, uint16_t aScanCode, cef_key_event_type_t aTy
         }
         else if (aType == KEYEVENT_KEYUP)
         {
-#if TP_SKYRIM
             SetUIActive(overlay, pRenderer, !active);
-#endif
         }
     }
     else if (active)
     {
-#if TP_SKYRIM
         pApp->InjectKey(aType, GetCefModifiers(aKey), aKey, aScanCode);
-#endif
     }
+#endif
 }
 
 void ProcessMouseMove(uint16_t aX, uint16_t aY)
