@@ -270,9 +270,9 @@ void ProcessMouseButton(uint16_t aX, uint16_t aY, cef_mouse_button_type_t aButto
 
 void ProcessMouseWheel(uint16_t aX, uint16_t aY, int16_t aZ)
 {
+#if TP_SKYRIM
     auto& overlay = *s_pOverlay;
 
-#if TP_SKYRIM
     const auto pApp = overlay.GetOverlayApp();
     if (!pApp)
         return;
@@ -284,16 +284,14 @@ void ProcessMouseWheel(uint16_t aX, uint16_t aY, int16_t aZ)
     const auto pRenderer = pClient->GetOverlayRenderHandler();
     if (!pRenderer)
         return;
-#endif
 
     const auto active = overlay.GetActive();
 
     if (active)
     {
-#if TP_SKYRIM
         pApp->InjectMouseWheel(aX, aY, aZ, GetCefModifiers(0));
-#endif
     }
+#endif
 }
 
 UINT GetRealACP()
