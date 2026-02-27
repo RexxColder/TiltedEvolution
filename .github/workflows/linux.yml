@@ -1,13 +1,10 @@
-name: Build linux (disabled - needs fix)
-
-# Disabled: Linux build needs to be fixed
-# To re-enable, change 'on:' back to the original configuration
+name: Build linux
 
 on:
   pull_request:
+  push:
     branches:
       - linux-fix
-  workflow_dispatch:
 
 jobs:
   build:
