@@ -25,40 +25,30 @@ jobs:
         git submodule sync --recursive
         git submodule update --init --force --recursive --depth=1
 
-    # Install dependencies
     - name: Update apt repositories
       run: sudo apt-get update
 
-    # Install Lua (required by sol2)
     - name: Install Lua
       run: sudo apt-get install -y lua5.3 liblua5.3-dev
 
-    # Install xmake
     - name: Setup xmake
       uses: xmake-io/github-action-setup-xmake@v1
       with:
         xmake-version: '2.9.8'
+        package-cache: false
+        build-cache: false
 
-    # Update xmake repository (in order to have the file that will be cached)
     - name: Update xmake repository
       run: xmake repo --update
 
-    # Setup compilation mode and install project dependencies
-    # (continue-on-error + timeout is a temporary solution until sentry-native is fixed; shouldn't affect the building step)
     - name: Configure xmake and install dependencies
-      continue-on-error: true
-      run: timeout 15m xmake config --arch=${{ matrix.arch }} --mode=${{ matrix.mode }} --yes
+      run: timeout 20m xmake config --arch=${{ matrix.arch }} --mode=${{ matrix.mode }} --yes -vD
 
-    # Build the server
     - name: Build
       run: xmake -y
 
-    # Create install
-    #- name: Install
-    # run: xmake install -o packaged
-
-    # Upload artifacts
-    #- uses: actions/upload-artifact@v2
-    #  with:
-    #    name: ${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.mode }}
-    #    path: packaged/bin/**
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: linux-build-${{ matrix.arch }}-${{ matrix.mode }}
+        path: build/linux/${{ matrix.arch }}/${{ matrix.mode }}/**
