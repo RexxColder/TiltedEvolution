@@ -21,12 +21,12 @@ struct TargetConfig
 // clang-format off
 
 static constexpr TargetConfig CurrentTarget{
-    L"SkyrimTogether.dll", 
-    L"Skyrim Special Edition", 
-    489830, 0x40000000, 35410264};
-#define TARGET_NAME L"SkyrimSE"
-#define TARGET_NAME_A "SkyrimSE"
-#define PRODUCT_NAME L"Skyrim Together"
-#define SHORT_NAME L"Skyrim Special Edition"
+    L"FalloutTogether.dll", 
+    L"Fallout 4", 
+    377160, 0x40000000, 68993024};
+#define TARGET_NAME L"Fallout4"
+#define TARGET_NAME_A "Fallout4"
+#define PRODUCT_NAME L"Fallout Together"
+#define SHORT_NAME L"Fallout 4"
 
 // clang-format on
