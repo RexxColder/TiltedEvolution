@@ -57,6 +57,7 @@ add_requireconfs("*.mimalloc", { version = "2.2.4", override = true })
 add_requireconfs("*.cmake", { version = "3.30.2", override = true })
 add_requireconfs("*.openssl", { version = "1.1.1-w", override = true })
 add_requireconfs("*.zlib", { version = "v1.3.1", override = true })
+add_requireconfs("protobuf-cpp", { version = "21.12", override = true })
 if is_plat("linux") then
     add_requireconfs("*.libcurl", { version = "8.7.1", override = true })
 end
