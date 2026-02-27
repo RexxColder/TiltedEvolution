@@ -1,54 +1,48 @@
 name: Build linux
 
 on:
-  pull_request:
   push:
     branches:
-      - linux-fix
+      - tests
+  pull_request:
+    branches:
+      - tests
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [ubuntu-22.04]
-        arch: [x64]
-        mode: [debug]
-
-    runs-on: ${{ matrix.os }}
-    if: "!contains(github.event.head_commit.message, 'ci skip')"
+    runs-on: ubuntu-22.04
 
     steps:
-    - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Checkout submodules
-      run: |
-        git submodule sync --recursive
-        git submodule update --init --force --recursive --depth=1
+      - name: Checkout submodules
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --force --recursive --depth=1
 
-    - name: Update apt repositories
-      run: sudo apt-get update
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lua5.3 liblua5.3-dev ninja-build
 
-    - name: Install Lua
-      run: sudo apt-get install -y lua5.3 liblua5.3-dev
+      - name: Setup xmake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: '2.9.8'
+          package-cache: false
 
-    - name: Setup xmake
-      uses: xmake-io/github-action-setup-xmake@v1
-      with:
-        xmake-version: '2.9.8'
-        package-cache: false
-        build-cache: false
+      - name: Update xmake repo
+        run: xmake repo --update
 
-    - name: Update xmake repository
-      run: xmake repo --update
+      - name: Configure
+        run: xmake config --arch=x64 --mode=debug --yes -vD
 
-    - name: Configure xmake and install dependencies
-      run: timeout 20m xmake config --arch=${{ matrix.arch }} --mode=${{ matrix.mode }} --yes -vD
+      - name: Build
+        run: xmake -y
 
-    - name: Build
-      run: xmake -y
-
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: linux-build-${{ matrix.arch }}-${{ matrix.mode }}
-        path: build/linux/${{ matrix.arch }}/${{ matrix.mode }}/**
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: linux-build
+          path: build/linux/x64/debug/**
