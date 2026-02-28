@@ -13,9 +13,18 @@ target(name)
     add_files(game_path .. "/**.cpp")
     add_headerfiles(game_path .. "/**.h")
     
+    -- Add service implementations
+    add_files("Services/Generic/**.cpp")
+    add_headerfiles("Services/Generic/**.h")
+    add_includedirs("Services")
+    
+    -- Add systems implementations
+    add_files("Systems/**.cpp")
+    add_headerfiles("Systems/**.h")
+    
     -- exclude other game and shared misc files
-    add_files("**.cpp|" .. exclude_path .. "/**|Games/Misc/**")
-    add_headerfiles("**.h|" .. exclude_path .. "/**|Games/Misc/**")
+    add_files("**.cpp|" .. exclude_path .. "/**|Games/Misc/**|Services/**|Systems/**")
+    add_headerfiles("**.h|" .. exclude_path .. "/**|Games/Misc/**|Services/**|Systems/**")
 
     after_install(function(target)
         -- copy dlls
