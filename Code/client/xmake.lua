@@ -106,9 +106,6 @@ build_client("FalloutTogetherClient", "Fallout4")
 -- ensure generic services are included in both client static libraries
 -- sometimes wildcard/exclusion patterns interfere, so explicitly add them
 if is_plat("windows") then
-    -- wrap in pcall so configuration doesn't fail when targets are unavailable
-    pcall(function()
-        target("SkyrimTogetherClient"):add_files("Services/Generic/**.cpp")
-        target("FalloutTogetherClient"):add_files("Services/Generic/**.cpp")
-    end)
+    target("SkyrimTogetherClient"):add_files("Services/Generic/**.cpp")
+    target("FalloutTogetherClient"):add_files("Services/Generic/**.cpp")
 end
