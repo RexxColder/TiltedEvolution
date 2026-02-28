@@ -74,6 +74,16 @@ target(name)
         "mem",
         "xbyak")
 
+    -- Add service implementations
+    add_files("Services/Generic/**.cpp")
+    add_headerfiles("Services/Generic/**.h")
+    add_includedirs("Services")
+    
+    -- Add systems implementations
+    add_files("Systems/**.cpp")
+    add_headerfiles("Systems/**.h")
+    add_includedirs("Systems")
+
     if has_config("vivox") then
         add_files("Services/Vivox/**.cpp")
         add_headerfiles("Services/Vivox/**.h")
