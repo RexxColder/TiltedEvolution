@@ -132,10 +132,17 @@ bool TiltedOnlineApp::Detach()
 
 void TiltedOnlineApp::InstallHooks2()
 {
+    spdlog::info("InstallHooks2: Starting...");
+    
+    spdlog::info("InstallHooks2: Running Initializer::RunAll...");
     TiltedPhoques::Initializer::RunAll();
+    spdlog::info("InstallHooks2: Initializer done, installing DInput...");
 
     TiltedPhoques::DInputHook::Install();
+    spdlog::info("InstallHooks2: Setting toggle keys...");
     TiltedPhoques::DInputHook::Get().SetToggleKeys({DIK_F2, DIK_RCONTROL});
+    
+    spdlog::info("InstallHooks2: All hooks installed!");
 }
 
 void TiltedOnlineApp::UninstallHooks()
