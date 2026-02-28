@@ -32,16 +32,26 @@ jobs:
         if: github.ref_type == 'tag'
         run: (git rev-parse HEAD) -eq (git rev-parse origin/master) -and (git checkout master)
 
-      - name: Clean xmake cache
-        run: |
-          Remove-Item -Path "$env:USERPROFILE\AppData\Local\.xmake\packages" -Recurse -Force -ErrorAction SilentlyContinue
+      # xmake cache is handled by the action itself; avoid wiping it on every run
+      #- name: Clean xmake cache
+      #  run: |
+      #    Remove-Item -Path "$env:USERPROFILE\AppData\Local\.xmake\packages" -Recurse -Force -ErrorAction SilentlyContinue
 
       - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
           xmake-version: 2.9.8
-          package-cache: false
-          build-cache: false
+          package-cache: true     # enable caching of downloaded packages
+          build-cache: true       # enable caching of intermediate build objects
+
+      # cache the pnpm store to speed up dependency installs
+      - name: Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
       - name: Install Lua
         run: |
