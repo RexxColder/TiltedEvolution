@@ -1,18 +1,18 @@
 [submodule "Libraries/TiltedReverse"]
 	path = Libraries/TiltedReverse
-	url = https://github.com/TiltedPhoques/TiltedReverse
+	url = https://github.com/RexxColder/TiltedReverse
 [submodule "Libraries/TiltedUI"]
 	path = Libraries/TiltedUI
-	url = https://github.com/TiltedPhoques/TiltedUI
+	url = https://github.com/RexxColder/TiltedUI
 [submodule "Libraries/TiltedConnect"]
 	path = Libraries/TiltedConnect
-	url = https://github.com/TiltedPhoques/TiltedConnect
+	url = https://github.com/RexxColder/TiltedConnect
 [submodule "Libraries/TiltedHooks"]
 	path = Libraries/TiltedHooks
-	url = https://github.com/TiltedPhoques/TiltedHooks
+	url = https://github.com/RexxColder/TiltedHooks
 [submodule "Libraries/TiltedScript"]
 	path = Libraries/TiltedScript
-	url = https://github.com/TiltedPhoques/TiltedScript
+	url = https://github.com/RexxColder/TiltedScript
 [submodule "Libraries/cpp-httplib"]
 	path = Libraries/cpp-httplib
 	url = https://github.com/yhirose/cpp-httplib.git
