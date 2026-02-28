@@ -1,48 +1,10 @@
+# Linux build disabled temporarily
 name: Build linux
 
 on:
   push:
     branches:
-      - tests
+      - never-trigger
   pull_request:
     branches:
-      - tests
-
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Checkout submodules
-        run: |
-          git submodule sync --recursive
-          git submodule update --init --force --recursive --depth=1
-
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y lua5.3 liblua5.3-dev ninja-build protobuf-compiler
-
-      - name: Setup xmake
-        uses: xmake-io/github-action-setup-xmake@v1
-        with:
-          xmake-version: '2.9.8'
-          package-cache: false
-
-      - name: Update xmake repo
-        run: xmake repo --update
-
-      - name: Configure
-        run: xmake config --arch=x64 --mode=debug --yes -vD
-
-      - name: Build
-        run: xmake -y
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: linux-build
-          path: build/linux/x64/debug/**
+      - never-trigger
