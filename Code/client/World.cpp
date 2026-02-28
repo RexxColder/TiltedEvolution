@@ -10,9 +10,7 @@
 #include <Services/PapyrusService.h>
 #include <Services/DiscordService.h>
 #include <Services/ObjectService.h>
-#if TP_SKYRIM
 #include <Services/QuestService.h>
-#endif
 #include <Services/ActorValueService.h>
 #include <Services/InventoryService.h>
 #include <Services/MagicService.h>
@@ -27,7 +25,7 @@
 #include <Events/PreUpdateEvent.h>
 #include <Events/UpdateEvent.h>
 
-#include <ModCompat/BehaviorVar.h>  
+#include <ModCompat/BehaviorVar.h>
 
 World::World()
     : m_runner(m_dispatcher)
@@ -36,7 +34,7 @@ World::World()
     , m_lastFrameTime{std::chrono::high_resolution_clock::now()}
 {
     ctx().emplace<ImguiService>();
-#if TP_SKYRIM
+#if TP_SKYRIM || TP_FALLOUT4
     ctx().emplace<DiscoveryService>(*this, m_dispatcher);
     ctx().emplace<OverlayService>(*this, m_transport, m_dispatcher);
     ctx().emplace<InputService>(ctx().at<OverlayService>());
@@ -46,7 +44,9 @@ World::World()
     ctx().emplace<DiscordService>(m_dispatcher);
     ctx().emplace<ObjectService>(*this, m_dispatcher, m_transport);
     ctx().emplace<CalendarService>(*this, m_dispatcher, m_transport);
+#if TP_SKYRIM
     ctx().emplace<QuestService>(*this, m_dispatcher);
+#endif
     ctx().emplace<PartyService>(*this, m_dispatcher, m_transport);
     ctx().emplace<ActorValueService>(*this, m_dispatcher, m_transport);
     ctx().emplace<InventoryService>(*this, m_dispatcher, m_transport);
