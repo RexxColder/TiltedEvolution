@@ -5,6 +5,7 @@
 #include <Commctrl.h>
 #include <Windows.h>
 
+#include <spdlog/spdlog.h>
 #include <base/dialogues/win/TaskDialog.h>
 
 std::unique_ptr<TiltedOnlineApp> g_appInstance{nullptr};
@@ -48,20 +49,32 @@ static void ShowAddressLibraryError(const wchar_t* apGamePath)
 
 void RunTiltedInit(const std::filesystem::path& acGamePath, const String& aExeVersion)
 {
+    spdlog::info("RunTiltedInit: Starting...");
+    spdlog::info("Game path: {}", acGamePath.string());
+    spdlog::info("Exe version: {}", aExeVersion.c_str());
+
     if (!VersionDb::Get().Load(acGamePath, aExeVersion))
     {
+        spdlog::error("VersionDb::Load failed!");
         ShowAddressLibraryError(acGamePath.c_str());
     }
 
+    spdlog::info("VersionDb loaded successfully");
+
     // VersionDb::Get().DumpToTextFile(R"(S:\Work\Tilted\fallout\_addresslib.txt)");
 
+    spdlog::info("Creating TiltedOnlineApp...");
     g_appInstance = std::make_unique<TiltedOnlineApp>();
 
+    spdlog::info("Installing hooks...");
     TiltedOnlineApp::InstallHooks2();
     TP_HOOK_COMMIT;
+
+    spdlog::info("Hooks installed, init complete!");
 }
 
 void RunTiltedApp()
 {
+    spdlog::info("RunTiltedApp: Starting main...");
     g_appInstance->BeginMain();
 }

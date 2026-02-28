@@ -1,4 +1,5 @@
 #include <Misc/BSScript.h>
+#include <Misc/GameVM.h>
 
 #if TP_FALLOUT4
 
@@ -66,6 +67,71 @@ BSScript::Object* BSScript::Variable::GetObject() const noexcept
         return nullptr;
 
     return data.pObj;
+}
+
+// ============================================================
+// Fallout 4 Native Papyrus Function Implementations
+// ============================================================
+
+BSScript::IsRemotePlayerFunc::IsRemotePlayerFunc(const char* apFunctionName, const char* apClassName, FunctionType aFunction, Variable::Type aType)
+    : NativeFunctionBase()
+{
+    pFunction = aFunction;
+    name.Set(apFunctionName);
+    objectName.Set(apClassName);
+    stateName.Set("");
+    returnType = aType;
+    isStatic = true;
+    isCallableFromTask = false;
+    paramCount = 1;
+}
+
+bool BSScript::IsRemotePlayerFunc::MarshallAndDispatch(Variable* apBaseVar, IVirtualMachine* apVm, uint32_t aStackID, Variable* apResult, StackFrame* apStackFrame)
+{
+    // For Fallout 4, we need to extract the Actor from the stack
+    // This is a simplified version - actual implementation needs proper address library
+    apResult->Set<bool>(false);
+    return true;
+}
+
+BSScript::IsPlayerFunc::IsPlayerFunc(const char* apFunctionName, const char* apClassName, FunctionType aFunction, Variable::Type aType)
+    : NativeFunctionBase()
+{
+    pFunction = aFunction;
+    name.Set(apFunctionName);
+    objectName.Set(apClassName);
+    stateName.Set("");
+    returnType = aType;
+    isStatic = true;
+    isCallableFromTask = false;
+    paramCount = 1;
+}
+
+bool BSScript::IsPlayerFunc::MarshallAndDispatch(Variable* apBaseVar, IVirtualMachine* apVm, uint32_t aStackID, Variable* apResult, StackFrame* apStackFrame)
+{
+    // For Fallout 4, we need to extract the Actor from the stack
+    apResult->Set<bool>(false);
+    return true;
+}
+
+BSScript::DidLaunchSkyrimTogetherFunc::DidLaunchSkyrimTogetherFunc(const char* apFunctionName, const char* apClassName, FunctionType aFunction, Variable::Type aType)
+    : NativeFunctionBase()
+{
+    pFunction = aFunction;
+    name.Set(apFunctionName);
+    objectName.Set(apClassName);
+    stateName.Set("");
+    returnType = aType;
+    isStatic = true;
+    isCallableFromTask = false;
+    paramCount = 0;
+}
+
+bool BSScript::DidLaunchSkyrimTogetherFunc::MarshallAndDispatch(Variable* apBaseVar, IVirtualMachine* apVm, uint32_t aStackID, Variable* apResult, StackFrame* apStackFrame)
+{
+    // Always return true - means the mod launcher was used
+    apResult->Set<bool>(true);
+    return true;
 }
 
 #endif

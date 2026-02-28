@@ -25,14 +25,18 @@ using TiltedPhoques::Debug;
 
 TiltedOnlineApp::TiltedOnlineApp()
 {
+    spdlog::info("=== TiltedOnlineApp Constructor START ===");
+
     // Set console code page to UTF-8 so console known how to interpret string data
     SetConsoleOutputCP(CP_UTF8);
 
+    spdlog::info("Creating log directory...");
     auto logPath = TiltedPhoques::GetPath() / "logs";
 
     std::error_code ec;
     create_directory(logPath, ec);
 
+    spdlog::info("Setting up loggers...");
     auto rotatingLogger = std::make_shared<spdlog::sinks::rotating_file_sink_mt>(logPath / "tp_client.log", 1048576 * 5, 3);
     // rotatingLogger->set_level(spdlog::level::debug);
     auto console = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
@@ -40,6 +44,8 @@ TiltedOnlineApp::TiltedOnlineApp()
     logger->set_pattern("%^[%Y-%m-%d %H:%M:%S.%e] [%l] [tid %t] %$ %v");
     spdlog::flush_every(std::chrono::seconds(1));
     set_default_logger(logger);
+
+    spdlog::info("=== TiltedOnlineApp Constructor DONE ===");
 }
 
 TiltedOnlineApp::~TiltedOnlineApp() = default;
