@@ -1,0 +1,10 @@
+[Timestamps]
+LastCompileTime = 0
+
+[Settings]
+ExportScripts = False
+CompressionEnabled = True
+ReflectedTypes = True
+AlwaysCompile = True
+Optimize = True
+ReleaseBuildFinal = True
