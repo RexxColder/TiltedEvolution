@@ -9,11 +9,11 @@ target(name)
     local game_path = "Games/" .. game
     local exclude_path = game == "Skyrim" and "Games/Fallout4" or "Games/Skyrim"
     
-    -- First add game-specific files
+    -- Add game-specific files
     add_files(game_path .. "/**.cpp")
     add_headerfiles(game_path .. "/**.h")
     
-    -- Add service implementations
+    -- Add service implementations (explicitly before wildcards)
     add_files("Services/Generic/**.cpp")
     add_headerfiles("Services/Generic/**.h")
     add_includedirs("Services")
@@ -21,8 +21,9 @@ target(name)
     -- Add systems implementations
     add_files("Systems/**.cpp")
     add_headerfiles("Systems/**.h")
+    add_includedirs("Systems")
     
-    -- exclude other game and shared misc files
+    -- Add all other files, excluding duplicates and unwanted directories
     add_files("**.cpp|" .. exclude_path .. "/**|Games/Misc/**|Services/**|Systems/**")
     add_headerfiles("**.h|" .. exclude_path .. "/**|Games/Misc/**|Services/**|Systems/**")
 
@@ -40,9 +41,7 @@ target(name)
         os.rm(path.join(target:installdir(), "bin", "**Tests.exe"))
     end)
 
-    add_files(game_path .. "/**.cpp")
-    add_headerfiles(game_path .. "/**.h")
-    -- rather hacky:
+    -- Configure game-specific settings
     add_includedirs("Games")
     add_includedirs(game_path)
     
@@ -82,16 +81,6 @@ target(name)
         "glm",
         "mem",
         "xbyak")
-
-    -- Add service implementations
-    add_files("Services/Generic/**.cpp")
-    add_headerfiles("Services/Generic/**.h")
-    add_includedirs("Services")
-    
-    -- Add systems implementations
-    add_files("Systems/**.cpp")
-    add_headerfiles("Systems/**.h")
-    add_includedirs("Systems")
 
     if has_config("vivox") then
         add_files("Services/Vivox/**.cpp")
